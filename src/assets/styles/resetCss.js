@@ -1,6 +1,13 @@
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
+
+  body {
+    --main-color: #272727;
+    --site-size: 1340px;
+  }
+
+
   html {
     box-sizing: border-box;
     font-size: 16px;
@@ -25,5 +32,4 @@ const GlobalStyle = createGlobalStyle`
     height: auto;
   }
 `
-
 export default GlobalStyle
