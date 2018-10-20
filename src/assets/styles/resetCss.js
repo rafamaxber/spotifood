@@ -4,9 +4,11 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     --main-color: #272727;
+    --success-color: #00e900;
     --site-size: 1340px;
-  }
 
+    background-color: var(--main-color);
+  }
 
   html {
     box-sizing: border-box;

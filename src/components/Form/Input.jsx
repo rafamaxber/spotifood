@@ -8,7 +8,7 @@ const Input = styled.input`
 `
 
 export const BigInputTheme = styled(Input)`
-  width: 95%;
+  width: 100%;
   border: none;
   height: 80px;
   margin: auto;

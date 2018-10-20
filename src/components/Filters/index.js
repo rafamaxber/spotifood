@@ -1,1 +1,2 @@
-export { FilterCountries, TitleFilter } from './Filter.jsx'
+export { FilterCountries } from './FilterCountries'
+export { TitleFilter } from './Shared.jsx'
