@@ -1,2 +1,3 @@
 export { FilterCountries } from './FilterCountries'
-export { TitleFilter } from './Shared.jsx'
+export { FilterLocale } from './FilterLocale'
+export { TitleFilter, Image, Label, WarpFilter } from './Shared.jsx'

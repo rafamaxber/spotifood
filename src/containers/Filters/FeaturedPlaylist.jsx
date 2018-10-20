@@ -1,8 +1,12 @@
 import React from 'react'
 
 import { Input } from '../../components/Form'
-import { FilterCountries, TitleFilter } from '../../components/Filters'
-import getLocaleName from '../../utils/allLocaleNames'
+import {
+  FilterCountries,
+  TitleFilter,
+  WarpFilter,
+  FilterLocale
+} from '../../components/Filters'
 
 const countries = [
   {
@@ -185,7 +189,7 @@ export default class Filters extends React.Component {
     const { countries, localeList } = this.state
 
     return (
-      <form>
+      <WarpFilter>
         <div className="coutries">
           <TitleFilter>Choose a country:</TitleFilter>
           {countries.map(country => (
@@ -195,21 +199,17 @@ export default class Filters extends React.Component {
               checked={country.checked}
               text={country.name}
               value={country.value}
-              name='countries'
+              name="countries"
             />
           ))}
         </div>
 
         <div className="locale">
           <TitleFilter>Choose a locale:</TitleFilter>
-          <select>
-            <option value="">Find a locale</option>
-            {localeList.map(locale => (
-              <option value={locale.value}>
-                {getLocaleName(locale.value)}
-              </option>
-            ))}
-          </select>
+          <FilterLocale>
+
+            teste
+          </FilterLocale>
         </div>
 
         <div className="timestamp">
@@ -232,8 +232,7 @@ export default class Filters extends React.Component {
           <TitleFilter>Start from?</TitleFilter>
           <Input type="number" placeholder="1" min="1" max="50" />
         </div>
-      </form>
+      </WarpFilter>
     )
   }
 }
-

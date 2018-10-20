@@ -1,9 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Input } from '../Form'
 import { flagPath } from '../../utils/countryflag.js'
 
-const Country = styled.div`
+import { Input } from '../Form'
+import { Image, Label } from '.'
+
+const Country = styled.a`
   max-width: 50px;
   display: inline-block;
   margin: 2px;
@@ -30,35 +32,12 @@ const Country = styled.div`
   }
 `
 
-const Label = styled.label`
-  padding: 0 5px;
-  display: block;
-`
-
 const Radiobox = styled(Input)`
-  display: none;
-`
-
-const Image = styled.img`
-  display: block;
-  width: 100%;
-  cursor: pointer;
-  transition: transform ease 0.2s;
-  :hover {
-    transform: scale(1.05);
+  opacity: 0;
+  position: absolute;
+  :focus + img {
+    transform: scale(1.1);
   }
-  :active {
-    transform: scale(0.9);
-  }
-`
-
-export const TitleFilter = styled.div`
-  font-size: 18px;
-  font-weight: bold;
-  display: block;
-  width: 100%;
-  color: #fff;
-  margin-bottom: 1%;
 `
 
 export const FilterCountries = ({ action, name, checked, text, value }) => (
