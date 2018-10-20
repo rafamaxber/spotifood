@@ -7,6 +7,7 @@ import {
   WarpFilter,
   FilterLocale
 } from '../../components/Filters'
+import getLocaleName from '../../utils/allLocaleNames.js'
 
 const countries = [
   {
@@ -161,7 +162,8 @@ const mock = {
 export default class Filters extends React.Component {
   state = {
     countries: [],
-    localeList: []
+    localeList: [],
+    selectedLocale: {}
   }
   componentDidMount() {
     //TODO: GET filters
@@ -170,8 +172,17 @@ export default class Filters extends React.Component {
       var language = window.navigator.userLanguage || window.navigator.language;
       alert(language);
     */
-    this.setState({ countries: countries })
-    this.setState({ localeList: locale })
+    this.setState({
+      countries: countries,
+      localeList: this.translateLocaleList(locale)
+    })
+  }
+
+  translateLocaleList(localeList: []) {
+    return localeList.map(locale => ({
+      value: locale.value,
+      label: getLocaleName(locale.name)
+    }))
   }
 
   handleOnChangeCountry(event) {
@@ -185,20 +196,26 @@ export default class Filters extends React.Component {
     this.setState({ countries })
   }
 
+  handleOnChangeLocale(event) {
+    this.setState({ selectedLocale: event })
+    console.log(event)
+  }
+
   render() {
-    const { countries, localeList } = this.state
+    const { countries, localeList, selectedLocale } = this.state
 
     return (
       <WarpFilter>
         <div className="coutries">
-          <TitleFilter>Choose a country:</TitleFilter>
-          {countries.map(country => (
+          <TitleFilter>Choose a country:</TitleFilter> {/*FIXME: Deveria estar dentro de FilterCountries ?*/}
+          {countries.map(country => ( // FIXME: É necessário ?
             <FilterCountries
               key={country.value}
               action={event => this.handleOnChangeCountry(event)}
               checked={country.checked}
               text={country.name}
               value={country.value}
+              options={countries}
               name="countries"
             />
           ))}
@@ -206,10 +223,11 @@ export default class Filters extends React.Component {
 
         <div className="locale">
           <TitleFilter>Choose a locale:</TitleFilter>
-          <FilterLocale>
-
-            teste
-          </FilterLocale>
+          <FilterLocale
+            action={event => this.handleOnChangeLocale(event)}
+            selected={selectedLocale}
+            options={localeList}
+          />
         </div>
 
         <div className="timestamp">
