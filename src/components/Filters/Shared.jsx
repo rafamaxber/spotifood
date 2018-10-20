@@ -22,8 +22,8 @@ export const WarpFilter = styled.div`
     min-width: 260px;
   }
   .limit {
-    width: 27%;
-    min-width: 340px;
+    width: 20%;
+    min-width: 200px;
   }
   .offset {
     width: 10%;

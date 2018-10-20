@@ -6,7 +6,9 @@ import {
   TitleFilter,
   WarpFilter,
   FilterLocale,
-  FilterTimestamp
+  FilterTimestamp,
+  FilterOffset,
+  FilterLimit
 } from '../../components/Filters'
 import getLocaleName from '../../utils/allLocaleNames.js'
 import { capitalizeFirstLetter } from '../../utils'
@@ -239,24 +241,19 @@ export default class Filters extends React.Component {
           {/* TODO: Improve component Date */}
           <TitleFilter>Choose a date:</TitleFilter>
           <FilterTimestamp
-            action={(value) => console.log(value)}
+            action={value => console.log(value)}
             value={new Date()}
           />
         </div>
 
         <div className="limit">
-          <TitleFilter>Do you want to see how many items?</TitleFilter>
-          <Input
-            type="number"
-            placeholder="Min 1 and max 50"
-            min="1"
-            max="50"
-          />
+          <TitleFilter>How many items?</TitleFilter>
+          <FilterLimit />
         </div>
 
         <div className="offset">
           <TitleFilter>Start from?</TitleFilter>
-          <Input type="number" placeholder="1" min="1" max="50" />
+          <FilterOffset />
         </div>
       </WarpFilter>
     )
