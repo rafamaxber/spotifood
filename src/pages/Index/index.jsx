@@ -13,7 +13,6 @@ export default class Index extends React.Component {
         <Limit>
           <FilterFeaturedPlaylist />
         </Limit>
-        <hr />
         <Limit>
           <BigInputTheme
             searchBig

@@ -8,6 +8,7 @@ import {
   FilterLocale
 } from '../../components/Filters'
 import getLocaleName from '../../utils/allLocaleNames.js'
+import { capitalizeFirstLetter } from '../../utils'
 
 const countries = [
   {
@@ -181,7 +182,7 @@ export default class Filters extends React.Component {
   translateLocaleList(localeList: []) {
     return localeList.map(locale => ({
       value: locale.value,
-      label: getLocaleName(locale.name)
+      label: capitalizeFirstLetter(getLocaleName(locale.name))
     }))
   }
 
@@ -207,8 +208,11 @@ export default class Filters extends React.Component {
     return (
       <WarpFilter>
         <div className="coutries">
-          <TitleFilter>Choose a country:</TitleFilter> {/*FIXME: Deveria estar dentro de FilterCountries ?*/}
-          {countries.map(country => ( // FIXME: É necessário ?
+          <TitleFilter>Choose a country:</TitleFilter>{' '}
+          {/*FIXME: Deveria estar dentro de FilterCountries ?*/}
+          {countries.map((
+            country // FIXME: É necessário ?
+          ) => (
             <FilterCountries
               key={country.value}
               action={event => this.handleOnChangeCountry(event)}

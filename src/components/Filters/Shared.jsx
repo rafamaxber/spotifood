@@ -2,8 +2,33 @@ import styled from 'styled-components'
 
 export const WarpFilter = styled.div`
   display: flex;
+  width: 100%;
   justify-content: space-between;
-  flex-warp: warp;
+  flex-wrap: wrap;
+  border-top: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  padding: 10px 0;
+  margin: 10px 0;
+  .coutries {
+    width: 15%;
+    min-width: 170px;
+  }
+  .locale {
+    width: 23%;
+    min-width: 260px;
+  }
+  .timestamp {
+    width: 15%;
+    min-width: 100px;
+  }
+  .limit {
+    width: 27%;
+    min-width: 340px;
+  }
+  .offset {
+    width: 10%;
+    min-width: 120px;
+  }
 `
 
 export const Label = styled.label`
