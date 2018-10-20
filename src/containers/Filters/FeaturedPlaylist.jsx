@@ -5,7 +5,8 @@ import {
   FilterCountries,
   TitleFilter,
   WarpFilter,
-  FilterLocale
+  FilterLocale,
+  FilterTimestamp
 } from '../../components/Filters'
 import getLocaleName from '../../utils/allLocaleNames.js'
 import { capitalizeFirstLetter } from '../../utils'
@@ -237,7 +238,10 @@ export default class Filters extends React.Component {
         <div className="timestamp">
           {/* TODO: Improve component Date */}
           <TitleFilter>Choose a date:</TitleFilter>
-          <Input type="date" placeholder="Choose a date" />
+          <FilterTimestamp
+            action={(value) => console.log(value)}
+            value={new Date()}
+          />
         </div>
 
         <div className="limit">

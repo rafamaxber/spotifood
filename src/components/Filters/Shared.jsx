@@ -18,8 +18,8 @@ export const WarpFilter = styled.div`
     min-width: 260px;
   }
   .timestamp {
-    width: 15%;
-    min-width: 100px;
+    width: 21%;
+    min-width: 260px;
   }
   .limit {
     width: 27%;
