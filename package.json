@@ -12,7 +12,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "docz:dev": "docz dev",
+    "docz:build": "docz build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -22,5 +24,9 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "docz": "0.8.0",
+    "webpack-hot-client": "^4.1.1"
+  }
 }
