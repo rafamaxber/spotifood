@@ -31,7 +31,7 @@ export class Index extends React.Component {
         <Header
           toogleFilter={() => toogleShowFilterBar(!showFilterBar)}
           toogleSearchBar={() => toogleShowSearchBar(!showSearchBar)}
-          loadTime={100}
+          loadProgress={100}
         />
         {showFilterBar && (
           <Limit>

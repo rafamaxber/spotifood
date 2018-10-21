@@ -48,6 +48,7 @@ const Header = styled.header`
 
 const Logo = styled.a`
   display: block;
+  margin: auto;
 `
 
 const Image = styled.img`
@@ -71,18 +72,22 @@ const SvgIcon = styled.svg`
   cursor: pointer;
 `
 
-export default ({ toogleFilter, toogleSearchBar, loadTime = 100 }) => (
-  <Header load={loadTime}>
+export default ({ toogleFilter, toogleSearchBar, loadProgress = 100 }) => (
+  <Header load={loadProgress}>
     <FlexLimit>
-      <SvgIcon onClick={toogleFilter}>
-        <use xlinkHref={`${svgSprite}#icon-filter`} />
-      </SvgIcon>
+      {toogleFilter && (
+        <SvgIcon onClick={toogleFilter}>
+          <use xlinkHref={`${svgSprite}#icon-filter`} />
+        </SvgIcon>
+      )}
       <Logo href="/">
         <Image src={logo} />
       </Logo>
-      <SvgIcon onClick={toogleSearchBar}>
-        <use xlinkHref={`${svgSprite}#icon-search`} />
-      </SvgIcon>
+      {toogleSearchBar && (
+        <SvgIcon onClick={toogleSearchBar}>
+          <use xlinkHref={`${svgSprite}#icon-search`} />
+        </SvgIcon>
+      )}
     </FlexLimit>
   </Header>
 )
