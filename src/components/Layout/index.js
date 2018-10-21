@@ -1,1 +1,1 @@
-export { Main, Limit } from './Layout.jsx'
+export { Main, Limit, FlexMain } from './Layout.jsx'

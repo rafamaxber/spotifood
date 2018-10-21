@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
     --site-size: 1340px;
 
     background-color: var(--main-color);
+    font-family: "-apple-system","BlinkMacSystemFont","Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
   }
 
   html {

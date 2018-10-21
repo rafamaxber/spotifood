@@ -9,3 +9,8 @@ export const Limit = styled.div`
   margin: auto;
   padding: 0 2.5%;
 `
+export const FlexMain = styled(Main)`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+`

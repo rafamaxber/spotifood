@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { Input } from '../../components/Form'
 import {
   FilterCountries,
   TitleFilter,
@@ -72,7 +71,7 @@ const locale = [
     name: 'es_AR'
   }
 ]
-
+/*
 const mock = {
   filters: [
     {
@@ -162,7 +161,7 @@ const mock = {
     }
   ]
 }
-
+*/
 export default class Filters extends React.Component {
   state = {
     countries: [],
