@@ -11,36 +11,10 @@ import {
   FilterOffset,
   FilterLimit
 } from '../../components/Filters'
-import getLocaleName from '../../utils/allLocaleNames.js'
-import { capitalizeFirstLetter } from '../../utils'
-import * as FeaturedPlaylistCreators from '../../store/featuredPlaylist'
+import { Loading } from '../../components/Loading/index'
 
-const locale = [
-  {
-    value: 'en_AU',
-    name: 'en_AU'
-  },
-  {
-    value: 'de_DE',
-    name: 'de_DE '
-  },
-  {
-    value: 'pt_BR',
-    name: 'pt_BR'
-  },
-  {
-    value: 'fr_FR',
-    name: 'fr_FR'
-  },
-  {
-    value: 'en_US',
-    name: 'en_US'
-  },
-  {
-    value: 'es_AR',
-    name: 'es_AR'
-  }
-]
+import * as storeActions from '../../store/featuredPlaylist'
+
 /*
 const mock = {
   filters: [
@@ -135,64 +109,52 @@ const mock = {
 class FeaturedPlaylist extends React.Component {
   constructor(props) {
     super(props)
-    const { dispatch } = props
-    this.boundActionCreators = bindActionCreators(
-      FeaturedPlaylistCreators,
-      dispatch
-    )
 
-    this.state = {
-      localeList: [],
-      selectedLocale: {}
-    }
+    const { dispatch } = props
+
+    this.boundActionCreators = bindActionCreators(storeActions, dispatch)
   }
 
   componentDidMount() {
-    this.props.dispatch(FeaturedPlaylistCreators.getFeaturedPlaylistFilters())
-
-    this.setState({
-      localeList: this.translateLocaleList(locale)
-    })
-  }
-
-  translateLocaleList(localeList: []) {
-    return localeList.map(locale => ({
-      value: locale.value,
-      label: capitalizeFirstLetter(getLocaleName(locale.name))
-    }))
+    if (this.props.hasFilterFields) return false
+    this.props.dispatch(storeActions.getFeaturedPlaylistFilters())
   }
 
   handleOnChangeCountry(event) {
-    this.props.dispatch(
-      FeaturedPlaylistCreators.selectCountry(event.target.value)
-    )
+    this.props.dispatch(storeActions.updateCountry(event.target.value))
   }
 
-  handleOnChangeLocale(event) {
-    this.setState({ selectedLocale: event })
+  handleOnChangeLocale(locale) {
+    this.props.dispatch(storeActions.updateLocale(locale.value))
   }
 
-  getFilteredField({ field, key, value }) {
-    const filteredField = this.props.filterFields.filter(
-      item => item[key] === value
-    )
+  handleOnChangeTimestamp(value) {
+    this.props.dispatch(storeActions.uptateTimestamp(value))
+  }
 
-    if (filteredField[0]) {
-    }
+  handleOnChangeLimit(value) {
+    this.props.dispatch(storeActions.uptatelimit(value))
+  }
+
+  handleOnChangeOffset(event) {
+    this.props.dispatch(storeActions.uptateOffset(event.target.value))
   }
 
   render() {
-    const { selectedLocale } = this.state
-    const { countries, localeList } = this.props.filterFields
+    const { countries, localeList, limit } = this.props.filterFields
     const selectedCountry = this.props.filters.country
+    const selectedLocale = this.props.filters.locale
+    const selectedTimestamp = this.props.filters.timestamp
+    const selectedLimit = this.props.filters.limit
 
+    if (this.props.loading) {
+      return <Loading />
+    }
     return (
       <WarpFilter>
         <div className="coutries">
           <TitleFilter>Choose a country:</TitleFilter>{' '}
-          {countries.map((
-            country
-          ) => (
+          {countries.map(country => (
             <FilterCountries
               key={country.value}
               action={event => this.handleOnChangeCountry(event)}
@@ -208,29 +170,38 @@ class FeaturedPlaylist extends React.Component {
         <div className="locale">
           <TitleFilter>Choose a locale:</TitleFilter>
           <FilterLocale
-            action={event => this.handleOnChangeLocale(event)}
+            action={locale => this.handleOnChangeLocale(locale)}
             selected={selectedLocale}
             options={localeList}
           />
         </div>
 
         <div className="timestamp">
-          {/* TODO: Improve component Date */}
           <TitleFilter>Choose a date:</TitleFilter>
           <FilterTimestamp
-            action={value => console.log(value)}
-            value={new Date()}
+            action={value => this.handleOnChangeTimestamp(value)}
+            value={selectedTimestamp}
           />
         </div>
 
         <div className="limit">
           <TitleFilter>How many items?</TitleFilter>
-          <FilterLimit />
+          <FilterLimit
+            maxValue={limit.max}
+            minValue={limit.min}
+            value={selectedLimit}
+            action={value => this.handleOnChangeLimit(value)}
+          />
         </div>
 
         <div className="offset">
           <TitleFilter>Start from?</TitleFilter>
-          <FilterOffset />
+          <FilterOffset
+            placeholder="0"
+            max={50}
+            min={1}
+            onChange={event => this.handleOnChangeOffset(event)}
+          />
         </div>
       </WarpFilter>
     )
@@ -238,6 +209,7 @@ class FeaturedPlaylist extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  hasFilterFields: state.featuredPlaylist.hasFilterFields,
   loading: state.featuredPlaylist.loading,
   filters: state.featuredPlaylist.filters,
   filterFields: state.featuredPlaylist.filterFields

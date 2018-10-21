@@ -10,23 +10,22 @@ const LoadingBar = styled.div`
 `
 
 const Image = styled.img`
-  width: 100%;
+  width: 80%;
   margin: auto;
   display: block;
   position: absolute;
   left: 0;
   right: 0;
   top: 5%;
+  background-color: rgba(255, 255, 255, 0.88);
   z-index: 10;
+  border-radius: 50%;
+  padding: 10px;
 `
 
 const Loading = () => (
   <LoadingBar>
-    <Image
-      className="img-loading"
-      src={loadingIcon}
-      alt="loading..."
-    />
+    <Image src={loadingIcon} alt="loading..." />
   </LoadingBar>
 )
 

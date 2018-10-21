@@ -11,13 +11,6 @@ const StyledInput = styled(Input)`
   box-shadow: none;
 `
 
-export const FilterOffset = ({ value, action }) => (
-  <StyledInput
-    type="number"
-    placeholder="1"
-    min="1"
-    max="50"
-    value={0}
-    onChange={value => console.log(value)}
-  />
+export const FilterOffset = (props, { onChange }) => (
+  <StyledInput {...props} type="number" />
 )

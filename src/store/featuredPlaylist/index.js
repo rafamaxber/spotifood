@@ -1,12 +1,12 @@
 import { httpGetFeaturedPlaylistFilters } from '../../services/Resources'
-import {
-  removeTheCountryLanguageReference,
-  getDefaultFilterValues
-} from '../../utils/country'
+import { removeTheCountryLanguageReference } from '../../utils/country'
+import { getDefaultFilterValues } from '../../utils'
+import { translateLocaleList } from '../../utils/locale'
 
 const defaultFilterValues = getDefaultFilterValues()
 export const initialState = {
   loading: true,
+  hasFilterFields: false,
   filters: {
     country: defaultFilterValues.country,
     locale: defaultFilterValues.locale,
@@ -26,8 +26,13 @@ export const initialState = {
 
 // types
 export const types = {
+  HAS_FILTER_FIELDS: 'HAS_FILTER_FIELDS',
   FILTER_FIELDS: 'FILTER_FIELDS',
-  SELECT_COUNTRY: 'SELECT_COUNTRY',
+  UPDATE_COUNTRY: 'UPDATE_COUNTRY',
+  UPDATE_LOCALE: 'UPDATE_LOCALE',
+  UPDATE_TIMESTAMP: 'UPDATE_TIMESTAMP',
+  UPDATE_LIMIT: 'UPDATE_LIMIT',
+  UPDATE_OFFSET: 'UPDATE_OFFSET',
   LOADING: 'LOADING'
 }
 
@@ -43,21 +48,23 @@ export default (state = initialState, action) => {
     case types.FILTER_FIELDS:
       return {
         ...state,
-        filterFields: {
-          countries: action.filterFields.countries,
-          localeList: action.filterFields.localeList,
-          timestamp: action.filterFields.timestamp,
-          limit: action.filterFields.limit,
-          offset: action.filterFields.offset
-        }
+        filterFields: action.filterFields
       }
 
-    case types.SELECT_COUNTRY:
+    case types.HAS_FILTER_FIELDS:
       return {
         ...state,
-        filters: {
-          country: action.filters.country
-        }
+        hasFilterFields: action.hasFilterFields
+      }
+
+    case types.UPDATE_COUNTRY:
+    case types.UPDATE_LOCALE:
+    case types.UPDATE_TIMESTAMP:
+    case types.UPDATE_LIMIT:
+    case types.UPDATE_OFFSET:
+      return {
+        ...state,
+        filters: action.filters
       }
 
     default:
@@ -66,7 +73,6 @@ export default (state = initialState, action) => {
 }
 
 // actions
-
 export const getCountries = filters => {
   let result = filters.filter(item => item.id === 'country')
   result = result.length ? result[0].values : []
@@ -78,29 +84,92 @@ export const getCountries = filters => {
   })
 }
 
-export const selectCountry = country => {
+export const getlocaleList = filters => {
+  let result = filters.filter(item => item.id === 'locale')
+  result = result.length ? result[0].values : []
+  return translateLocaleList(result)
+}
+
+export const getLimit = filters => {
+  let result = filters.filter(item => item.id === 'limit')
+  result = result.length ? result[0].validation : []
+  return result
+}
+
+export const updateCountry = country => {
   return (dispatch, getState) => {
+    const filters = getState().featuredPlaylist.filters
     dispatch({
-      type: types.SELECT_COUNTRY,
+      type: types.UPDATE_COUNTRY,
       filters: {
+        ...filters,
         country
       }
     })
   }
 }
 
-export const getlocaleList = filters => {
-  let result = filters.filter(item => item.id === 'locale')
-  result = result.length ? result[0].values : []
-  return result
+export const updateLocale = locale => {
+  return (dispatch, getState) => {
+    const filters = getState().featuredPlaylist.filters
+    dispatch({
+      type: types.UPDATE_LOCALE,
+      filters: {
+        ...filters,
+        locale
+      }
+    })
+  }
+}
+
+export const uptateTimestamp = timestamp => {
+  return (dispatch, getState) => {
+    const filters = getState().featuredPlaylist.filters
+    dispatch({
+      type: types.UPDATE_TIMESTAMP,
+      filters: {
+        ...filters,
+        timestamp
+      }
+    })
+  }
+}
+
+export const uptateOffset = offset => {
+  return (dispatch, getState) => {
+    const filters = getState().featuredPlaylist.filters
+    dispatch({
+      type: types.UPDATE_OFFSET,
+      filters: {
+        ...filters,
+        offset
+      }
+    })
+  }
+}
+
+export const uptatelimit = limit => {
+  return (dispatch, getState) => {
+    const filters = getState().featuredPlaylist.filters
+    dispatch({
+      type: types.UPDATE_LIMIT,
+      filters: {
+        ...filters,
+        limit
+      }
+    })
+  }
 }
 
 export const getFeaturedPlaylistFilters = () => {
   return (dispatch, getState) => {
+    const filters = getState().featuredPlaylist.filters
+
     dispatch({
       type: types.LOADING,
       loading: true
     })
+
     return httpGetFeaturedPlaylistFilters()
       .then(filters => {
         dispatch({
@@ -109,8 +178,17 @@ export const getFeaturedPlaylistFilters = () => {
             countries: getCountries(filters.data.filters),
             localeList: getlocaleList(filters.data.filters),
             timestamp: [],
-            limit: [],
+            limit: getLimit(filters.data.filters),
             offset: []
+          }
+        })
+      })
+      .then(() => {
+        dispatch({
+          type: types.UPDATE_LIMIT,
+          filters: {
+            ...filters,
+            limit: defaultFilterValues.limit
           }
         })
       })
@@ -118,6 +196,10 @@ export const getFeaturedPlaylistFilters = () => {
         dispatch({
           type: types.LOADING,
           loading: false
+        })
+        dispatch({
+          type: types.HAS_FILTER_FIELDS,
+          hasFilterFields: true
         })
       })
   }

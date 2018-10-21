@@ -1,10 +1,19 @@
+import { capitalizeFirstLetter } from '.'
+
 // TODO: Improve load performance
 
-const getLocaleName = locale => {
-  return allLocaleNames[locale]
+const getLocaleName = (locale = '') => {
+  return allLocaleNames[locale.trim()]
 }
 
-export default getLocaleName
+const translateLocaleList = (localeList = []) => {
+  return localeList.map(locale => ({
+    value: locale.value,
+    label: capitalizeFirstLetter(getLocaleName(locale.name))
+  }))
+}
+
+export { getLocaleName, translateLocaleList }
 
 export const allLocaleNames = {
   af_NA: 'Afrikaans (Namibia)',

@@ -16,3 +16,21 @@ export const openWindow = ({ url, name, width, height }) => {
       top=${top}, left=${left}`
   )
 }
+
+export const getDefaultFilterValues = () => {
+  if (window.navigator) {
+    const locale =
+      window.navigator.userLanguage || window.navigator.language || 'en-US'
+    const country = locale.replace(/(.+)-/g, '')
+    const timestamp = new Date()
+    const limit = 25
+    const offset = 1
+    return {
+      locale: locale.replace('-', '_'),
+      country,
+      timestamp,
+      limit,
+      offset
+    }
+  }
+}

@@ -24,11 +24,13 @@ const GlobalStyle = createGlobalStyle`
 export const FilterLimit = ({ maxValue, minValue, value, action }) => (
   <React.Fragment>
     <GlobalStyle />
-    <InputRange
-      maxValue={20}
-      minValue={0}
-      value={0}
-      onChange={value => console.log(value)}
-    />
+    {maxValue && (
+      <InputRange
+        maxValue={maxValue}
+        minValue={minValue}
+        value={value}
+        onChange={action}
+      />
+    )}
   </React.Fragment>
 )
