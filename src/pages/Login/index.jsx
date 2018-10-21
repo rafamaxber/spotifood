@@ -11,7 +11,7 @@ import {
 import { openWindow } from '../../utils'
 
 export const SPOTIFY_URL_AUTH =
-  'https://accounts.spotify.com/authorize?client_id=9692b64b8fda41f29d9595800af7d109&response_type=token&redirect_uri=http://localhost:3000/login'
+  `https://accounts.spotify.com/authorize?client_id=9692b64b8fda41f29d9595800af7d109&response_type=token&redirect_uri=${window.location.origin}/login`
 
 export default class Login extends React.PureComponent {
   constructor(props) {
@@ -21,13 +21,19 @@ export default class Login extends React.PureComponent {
   }
 
   componentWillMount() {
-    if (window.name !== LOGIN_POP_UP_NAME || !window.location.hash) return false
 
-    const queryParams = qs.parse(window.location.hash)
-    const accessToken = queryParams[ACCESS_TOKEN_HASH_KEY]
+    if (window.location.hash) {
 
-    if (accessToken) {
-      window.localStorage.setItem(ACCESS_TOKEN_STORAGE_KEY, accessToken)
+      const queryParams = qs.parse(window.location.hash)
+      const accessToken = queryParams[ACCESS_TOKEN_HASH_KEY]
+
+      if (accessToken) {
+        window.localStorage.setItem(ACCESS_TOKEN_STORAGE_KEY, accessToken)
+      }
+
+    }
+
+    if (window.opener) {
       window.opener.location.href = window.location.origin
       window.close()
     }

@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 import {
   FilterCountries,
@@ -11,39 +13,7 @@ import {
 } from '../../components/Filters'
 import getLocaleName from '../../utils/allLocaleNames.js'
 import { capitalizeFirstLetter } from '../../utils'
-
-const countries = [
-  {
-    value: 'AU',
-    name: 'Australia',
-    checked: false // custom field
-  },
-  {
-    value: 'DE',
-    name: 'Alemanhã',
-    checked: false // custom field
-  },
-  {
-    value: 'BR',
-    name: 'Brasil',
-    checked: false // custom field
-  },
-  {
-    value: 'PT',
-    name: 'Portugal',
-    checked: false // custom field
-  },
-  {
-    value: 'en_US',
-    name: 'EUA',
-    checked: false // custom field
-  },
-  {
-    value: 'RU',
-    name: 'Rússia',
-    checked: false // custom field
-  }
-]
+import * as FeaturedPlaylistCreators from '../../store/featuredPlaylist'
 
 const locale = [
   {
@@ -162,21 +132,25 @@ const mock = {
   ]
 }
 */
-export default class Filters extends React.Component {
-  state = {
-    countries: [],
-    localeList: [],
-    selectedLocale: {}
+class FeaturedPlaylist extends React.Component {
+  constructor(props) {
+    super(props)
+    const { dispatch } = props
+    this.boundActionCreators = bindActionCreators(
+      FeaturedPlaylistCreators,
+      dispatch
+    )
+
+    this.state = {
+      localeList: [],
+      selectedLocale: {}
+    }
   }
+
   componentDidMount() {
-    //TODO: GET filters
-    //TODO: SET country and locale default by navigator
-    /*
-      var language = window.navigator.userLanguage || window.navigator.language;
-      alert(language);
-    */
+    this.props.dispatch(FeaturedPlaylistCreators.getFeaturedPlaylistFilters())
+
     this.setState({
-      countries: countries,
       localeList: this.translateLocaleList(locale)
     })
   }
@@ -189,36 +163,40 @@ export default class Filters extends React.Component {
   }
 
   handleOnChangeCountry(event) {
-    const countries = Array.from(this.state.countries)
-
-    countries.map(country => {
-      country.checked = country.value === event.target.value
-      return country
-    })
-
-    this.setState({ countries })
+    this.props.dispatch(
+      FeaturedPlaylistCreators.selectCountry(event.target.value)
+    )
   }
 
   handleOnChangeLocale(event) {
     this.setState({ selectedLocale: event })
-    console.log(event)
+  }
+
+  getFilteredField({ field, key, value }) {
+    const filteredField = this.props.filterFields.filter(
+      item => item[key] === value
+    )
+
+    if (filteredField[0]) {
+    }
   }
 
   render() {
-    const { countries, localeList, selectedLocale } = this.state
+    const { selectedLocale } = this.state
+    const { countries, localeList } = this.props.filterFields
+    const selectedCountry = this.props.filters.country
 
     return (
       <WarpFilter>
         <div className="coutries">
           <TitleFilter>Choose a country:</TitleFilter>{' '}
-          {/*FIXME: Deveria estar dentro de FilterCountries ?*/}
           {countries.map((
-            country // FIXME: É necessário ?
+            country
           ) => (
             <FilterCountries
               key={country.value}
               action={event => this.handleOnChangeCountry(event)}
-              checked={country.checked}
+              checked={selectedCountry}
               text={country.name}
               value={country.value}
               options={countries}
@@ -258,3 +236,11 @@ export default class Filters extends React.Component {
     )
   }
 }
+
+const mapStateToProps = state => ({
+  loading: state.featuredPlaylist.loading,
+  filters: state.featuredPlaylist.filters,
+  filterFields: state.featuredPlaylist.filterFields
+})
+
+export default connect(mapStateToProps)(FeaturedPlaylist)

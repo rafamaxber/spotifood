@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { flagPath } from '../../utils/countryflag.js'
+import { flagPath } from '../../utils/country.js'
 
 import { Input } from '../Form'
 import { Image, Label } from '.'
@@ -41,14 +41,14 @@ const Radiobox = styled(Input)`
 `
 
 export const FilterCountries = ({ action, name, checked, text, value }) => (
-  <Country active={checked}>
+  <Country active={value === checked}>
     <Label aria-label={text}>
       <Radiobox
         type="radio"
         onChange={action}
         value={value}
         name={name}
-        checked={checked}
+        checked={value === checked}
       />
       <Image src={flagPath(value)} alt={text} title={text} />
     </Label>
