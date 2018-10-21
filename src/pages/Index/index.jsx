@@ -1,29 +1,51 @@
 import React from 'react'
-
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { LoadableWrapper } from '../../components/Loading'
+import { toogleShowFilterBar, toogleShowSearchBar } from '../../Store/Layout'
 import { Main, Limit, FlexMain } from '../../components/Layout'
 import { Header } from '../../components/Header'
-import { BigInputTheme } from '../../components/Form'
-import FilterFeaturedPlaylist from '../../containers/Filters/FeaturedPlaylist'
 import { CardFeaturedPlaylist } from '../../components/Card'
+import { BigInputTheme } from '../../components/Form'
 
 import mock from '../../utils/mock-featured-playlists.json'
 
+const FilterFeaturedPlaylist = LoadableWrapper({
+  loader: () =>
+    import(/*webpackChunkName: "FilterFeaturedPlaylist"*/ '../../containers/Filters/FeaturedPlaylist')
+})
+
 const playlists = mock.playlists.items
 
-export default class Index extends React.Component {
+export class Index extends React.Component {
   render() {
+    const {
+      showSearchBar,
+      showFilterBar,
+      toogleShowSearchBar,
+      toogleShowFilterBar
+    } = this.props
+
     return (
       <Main>
-        <Header />
-        <Limit>
-          <FilterFeaturedPlaylist />
-        </Limit>
-        <Limit>
-          <BigInputTheme
-            type="search"
-            placeholder="Find your favorite playlist"
-          />
-        </Limit>
+        <Header
+          toogleFilter={() => toogleShowFilterBar(!showFilterBar)}
+          toogleSearchBar={() => toogleShowSearchBar(!showSearchBar)}
+          loadTime={100}
+        />
+        {showFilterBar && (
+          <Limit>
+            <FilterFeaturedPlaylist />
+          </Limit>
+        )}
+        {showSearchBar && (
+          <Limit>
+            <BigInputTheme
+              type="search"
+              placeholder="Find your favorite playlist"
+            />
+          </Limit>
+        )}
         <Limit>
           <FlexMain>
             {playlists.map(playlist => (
@@ -45,3 +67,22 @@ export default class Index extends React.Component {
     )
   }
 }
+
+const mapStateToProps = state => ({
+  showSearchBar: state.layout.showSearchBar,
+  showFilterBar: state.layout.showFilterBar
+})
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      toogleShowSearchBar,
+      toogleShowFilterBar
+    },
+    dispatch
+  )
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Index)

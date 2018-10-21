@@ -5,7 +5,6 @@ export const WarpFilter = styled.div`
   width: 100%;
   justify-content: space-between;
   flex-wrap: wrap;
-  border-top: 2px solid #fff;
   border-bottom: 2px solid #fff;
   padding: 10px 0;
   margin: 10px 0;
