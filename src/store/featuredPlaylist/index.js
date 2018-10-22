@@ -1,11 +1,13 @@
 import { httpGetFeaturedPlaylistFilters } from '../../services/Resources'
 import { removeTheCountryLanguageReference } from '../../utils/country'
-import { getDefaultFilterValues } from '../../utils'
+import { getDefaultFilterValues, deleteProp } from '../../utils'
 import { translateLocaleList } from '../../utils/locale'
+import { httpGetFeaturedPlaylists } from '../../services/Spotify'
 
 const defaultFilterValues = getDefaultFilterValues()
 export const initialState = {
   loading: true,
+  playlistLoading: true,
   hasFilterFields: false,
   filters: {
     country: defaultFilterValues.country,
@@ -13,7 +15,7 @@ export const initialState = {
     timestamp: defaultFilterValues.timestamp,
     limit: defaultFilterValues.limit,
     offset: defaultFilterValues.offset,
-    searchText: ''
+    searchBarValue: ''
   },
   filterFields: {
     countries: [],
@@ -21,7 +23,8 @@ export const initialState = {
     timestamp: [],
     limit: [],
     offset: []
-  }
+  },
+  playlists: []
 }
 
 // types
@@ -33,6 +36,9 @@ export const types = {
   UPDATE_TIMESTAMP: 'UPDATE_TIMESTAMP',
   UPDATE_LIMIT: 'UPDATE_LIMIT',
   UPDATE_OFFSET: 'UPDATE_OFFSET',
+  UPDATE_SEARCH_BAR_VALUE: 'UPDATE_SEARCH_BAR_VALUE',
+  PLAYLISTS: 'PLAYLISTS',
+  LOADING_PLAYLISTS: 'LOADING_PLAYLISTS',
   LOADING: 'LOADING'
 }
 
@@ -43,6 +49,18 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: action.loading
+      }
+
+    case types.PLAYLISTS:
+      return {
+        ...state,
+        playlists: action.playlists
+      }
+
+    case types.LOADING_PLAYLISTS:
+      return {
+        ...state,
+        playlistLoading: action.playlistLoading
       }
 
     case types.FILTER_FIELDS:
@@ -57,6 +75,7 @@ export default (state = initialState, action) => {
         hasFilterFields: action.hasFilterFields
       }
 
+    case types.UPDATE_SEARCH_BAR_VALUE:
     case types.UPDATE_COUNTRY:
     case types.UPDATE_LOCALE:
     case types.UPDATE_TIMESTAMP:
@@ -125,11 +144,13 @@ export const updateLocale = locale => {
 export const uptateTimestamp = timestamp => {
   return (dispatch, getState) => {
     const filters = getState().featuredPlaylist.filters
+    const timestampFormated = timestamp.toISOString()
+    console.log('timestampFormated ==> ', timestampFormated)
     dispatch({
       type: types.UPDATE_TIMESTAMP,
       filters: {
         ...filters,
-        timestamp
+        timestamp: timestampFormated
       }
     })
   }
@@ -156,6 +177,19 @@ export const uptatelimit = limit => {
       filters: {
         ...filters,
         limit
+      }
+    })
+  }
+}
+
+export const updateSearchBar = value => {
+  return (dispatch, getState) => {
+    const filters = getState().featuredPlaylist.filters
+    dispatch({
+      type: types.UPDATE_SEARCH_BAR_VALUE,
+      filters: {
+        ...filters,
+        searchBarValue: value
       }
     })
   }
@@ -200,6 +234,33 @@ export const getFeaturedPlaylistFilters = () => {
         dispatch({
           type: types.HAS_FILTER_FIELDS,
           hasFilterFields: true
+        })
+      })
+  }
+}
+
+export const getFeaturedPlaylists = () => {
+  return (dispatch, getState) => {
+    const filters = getState().featuredPlaylist.filters
+    const spotifyFilter = deleteProp('searchBarValue', filters)
+
+    dispatch({
+      type: types.LOADING_PLAYLISTS,
+      playlistLoading: true
+    })
+
+    return httpGetFeaturedPlaylists(spotifyFilter)
+      .then(response => {
+        console.log('response.data.playlists == > ', response.data.playlists)
+        dispatch({
+          type: types.PLAYLISTS,
+          playlists: response.data.playlists.items
+        })
+      })
+      .then(() => {
+        dispatch({
+          type: types.LOADING_PLAYLISTS,
+          playlistLoading: false
         })
       })
   }

@@ -10,6 +10,7 @@ const StyledDateTimePicker = styled(DateTimePicker)`
   }
 `
 
-export const FilterTimestamp = ({ action, value }) => (
-  <StyledDateTimePicker onChange={action} value={value} />
-)
+export const FilterTimestamp = ({ action, value }) => {
+  const date = new Date(value)
+  return <StyledDateTimePicker onChange={action} value={date} />
+}

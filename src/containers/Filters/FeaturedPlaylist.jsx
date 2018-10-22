@@ -11,11 +11,11 @@ import {
   FilterOffset,
   FilterLimit
 } from '../../components/Filters'
-import { Loading } from '../../components/Loading/index'
 
+import { Loading } from '../../components/Loading/index'
 import * as storeActions from '../../store/featuredPlaylist'
 
-class FeaturedPlaylist extends React.Component {
+class FeaturedPlaylist extends React.PureComponent {
   constructor(props) {
     super(props)
     const { dispatch } = props
@@ -29,22 +29,27 @@ class FeaturedPlaylist extends React.Component {
 
   handleOnChangeCountry(event) {
     this.props.dispatch(storeActions.updateCountry(event.target.value))
+    this.props.dispatch(storeActions.getFeaturedPlaylists())
   }
 
   handleOnChangeLocale(locale) {
     this.props.dispatch(storeActions.updateLocale(locale.value))
+    this.props.dispatch(storeActions.getFeaturedPlaylists())
   }
 
   handleOnChangeTimestamp(value) {
     this.props.dispatch(storeActions.uptateTimestamp(value))
+    this.props.dispatch(storeActions.getFeaturedPlaylists())
   }
 
   handleOnChangeLimit(value) {
     this.props.dispatch(storeActions.uptatelimit(value))
+    this.props.dispatch(storeActions.getFeaturedPlaylists())
   }
 
   handleOnChangeOffset(event) {
     this.props.dispatch(storeActions.uptateOffset(event.target.value))
+    this.props.dispatch(storeActions.getFeaturedPlaylists())
   }
 
   render() {

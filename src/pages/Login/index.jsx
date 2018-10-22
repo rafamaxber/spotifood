@@ -9,9 +9,7 @@ import {
   ACCESS_TOKEN_HASH_KEY
 } from '../../constants'
 import { openWindow } from '../../utils'
-
-export const SPOTIFY_URL_AUTH =
-  `https://accounts.spotify.com/authorize?client_id=9692b64b8fda41f29d9595800af7d109&response_type=token&redirect_uri=${window.location.origin}/login`
+import { SPOTIFY_URL_AUTH } from '../../services/Spotify'
 
 export default class Login extends React.PureComponent {
   constructor(props) {

@@ -10,7 +10,7 @@ const Input = styled.input`
 export const BigInputTheme = styled(Input)`
   width: 100%;
   height: 80px;
-  margin: auto;
+  margin: 0 auto 2%;
   padding: 2%;
   font-weight: bold;
   font-size: 25px;
@@ -19,7 +19,7 @@ export const BigInputTheme = styled(Input)`
   ::placeholder {
     font-weight: normal;
     color: #fff;
-    opacity: .2;
+    opacity: 0.2;
   }
 `
 

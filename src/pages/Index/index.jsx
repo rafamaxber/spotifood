@@ -1,23 +1,39 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { LoadableWrapper } from '../../components/Loading'
+import { LoadableWrapper, Loading } from '../../components/Loading'
 import { toogleShowFilterBar, toogleShowSearchBar } from '../../store/layout'
+import { getFeaturedPlaylists } from '../../store/featuredPlaylist'
 import { Main, Limit, FlexMain } from '../../components/Layout'
 import { Header } from '../../components/Header'
 import { CardFeaturedPlaylist } from '../../components/Card'
-import { BigInputTheme } from '../../components/Form'
-
-import mock from '../../utils/mock-featured-playlists.json'
 
 const FilterFeaturedPlaylist = LoadableWrapper({
   loader: () =>
     import(/*webpackChunkName: "FilterFeaturedPlaylist"*/ '../../containers/Filters/FeaturedPlaylist')
 })
 
-const playlists = mock.playlists.items
+const SearchBarFeaturedPlaylist = LoadableWrapper({
+  loader: () =>
+    import(/*webpackChunkName: "SearchBarFeaturedPlaylist"*/ '../../containers/Filters/SearchBarFeaturedPlaylist.jsx')
+})
 
 export class Index extends React.Component {
+  componentDidMount() {
+    this.props.getFeaturedPlaylists()
+  }
+
+  filterPlaylist(playlist) {
+    console.log(this.props.searchBarValue)
+    if (this.props.searchBarValue.trim() === '') return playlist
+
+    const filteredPlaylist = playlist.filter(item =>
+      item.name.toLowerCase().includes(this.props.searchBarValue.toLowerCase())
+    )
+
+    return filteredPlaylist
+  }
+
   render() {
     const {
       showSearchBar,
@@ -40,44 +56,47 @@ export class Index extends React.Component {
         )}
         {showSearchBar && (
           <Limit>
-            <BigInputTheme
-              type="search"
-              placeholder="Find your favorite playlist"
-            />
+            <SearchBarFeaturedPlaylist />
           </Limit>
         )}
-        <Limit>
-          <FlexMain>
-            {playlists.map(playlist => (
-              <CardFeaturedPlaylist
-                key={playlist.id}
-                image={playlist.images[0].url}
-                title={playlist.name}
-                subTitle={playlist.name}
-                tracks={{
-                  total: playlist.tracks.total,
-                  href: playlist.tracks.href
-                }}
-                link={{ href: playlist.href, name: 'go to spotify' }}
-              />
-            ))}
-          </FlexMain>
-        </Limit>
+        {this.props.playlistLoading
+        ? <Loading />
+        : <Limit>
+            <FlexMain>
+              {this.filterPlaylist(this.props.playlists).map(playlist => (
+                <CardFeaturedPlaylist
+                  key={playlist.id}
+                  image={playlist.images[0].url}
+                  title={playlist.name}
+                  subTitle={playlist.name}
+                  tracks={{
+                    total: playlist.tracks.total,
+                    href: playlist.tracks.href
+                  }}
+                  link={{ href: playlist.href, name: 'go to spotify' }}
+                />
+              ))}
+            </FlexMain>
+          </Limit>}
       </Main>
     )
   }
 }
 
 const mapStateToProps = state => ({
+  playlists: state.featuredPlaylist.playlists,
+  playlistLoading: state.featuredPlaylist.playlistLoading,
   showSearchBar: state.layout.showSearchBar,
-  showFilterBar: state.layout.showFilterBar
+  showFilterBar: state.layout.showFilterBar,
+  searchBarValue: state.featuredPlaylist.filters.searchBarValue
 })
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       toogleShowSearchBar,
-      toogleShowFilterBar
+      toogleShowFilterBar,
+      getFeaturedPlaylists
     },
     dispatch
   )

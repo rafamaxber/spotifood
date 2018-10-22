@@ -22,7 +22,7 @@ export const getDefaultFilterValues = () => {
     const locale =
       window.navigator.userLanguage || window.navigator.language || 'en-US'
     const country = locale.replace(/(.+)-/g, '')
-    const timestamp = new Date()
+    const timestamp = new Date().toISOString()
     const limit = 25
     const offset = 1
     return {
@@ -33,4 +33,15 @@ export const getDefaultFilterValues = () => {
       offset
     }
   }
+}
+
+export const deleteProp = (item, listObject) => {
+  const propBeDeleted = item
+
+  return Object.keys(listObject).reduce((object, key) => {
+    if (key !== propBeDeleted) {
+      object[key] = listObject[key]
+    }
+    return object
+  }, {})
 }
