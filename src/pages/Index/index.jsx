@@ -1,6 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+
+import worker from '../../app.worker.js'
+import WebWorker from '../../WebWorker.js'
+
 import { LoadableWrapper, Loading } from '../../components/Loading'
 import { toogleShowFilterBar, toogleShowSearchBar } from '../../store/layout'
 import { getFeaturedPlaylists } from '../../store/featuredPlaylist'
@@ -20,11 +24,15 @@ const SearchBarFeaturedPlaylist = LoadableWrapper({
 
 export class Index extends React.Component {
   componentDidMount() {
+    this.worker = new WebWorker(worker)
+    this.worker.addEventListener('message', event => {
+      this.props.getFeaturedPlaylists(false)
+    })
+    this.worker.postMessage('updateFeaturedPlaylist')
     this.props.getFeaturedPlaylists()
   }
 
   filterPlaylist(playlist) {
-    console.log(this.props.searchBarValue)
     if (this.props.searchBarValue.trim() === '') return playlist
 
     const filteredPlaylist = playlist.filter(item =>
@@ -59,9 +67,10 @@ export class Index extends React.Component {
             <SearchBarFeaturedPlaylist />
           </Limit>
         )}
-        {this.props.playlistLoading
-        ? <Loading />
-        : <Limit>
+        {this.props.playlistLoading ? (
+          <Loading />
+        ) : (
+          <Limit>
             <FlexMain>
               {this.filterPlaylist(this.props.playlists).map(playlist => (
                 <CardFeaturedPlaylist
@@ -77,7 +86,8 @@ export class Index extends React.Component {
                 />
               ))}
             </FlexMain>
-          </Limit>}
+          </Limit>
+        )}
       </Main>
     )
   }

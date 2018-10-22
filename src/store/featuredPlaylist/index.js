@@ -239,23 +239,32 @@ export const getFeaturedPlaylistFilters = () => {
   }
 }
 
-export const getFeaturedPlaylists = () => {
+export const getFeaturedPlaylists = (hasLoading = true) => {
   return (dispatch, getState) => {
     const filters = getState().featuredPlaylist.filters
     const spotifyFilter = deleteProp('searchBarValue', filters)
 
     dispatch({
       type: types.LOADING_PLAYLISTS,
-      playlistLoading: true
+      playlistLoading: hasLoading
     })
 
     return httpGetFeaturedPlaylists(spotifyFilter)
       .then(response => {
-        console.log('response.data.playlists == > ', response.data.playlists)
         dispatch({
           type: types.PLAYLISTS,
           playlists: response.data.playlists.items
         })
+      })
+      .catch(error => {
+        if (error.response) {
+          if (error.response.status === 401) {
+            window.localStorage.removeItem('accessToken')
+            window.href = '/'
+          }
+        } else if (error.request) {
+          window.href = '/'
+        }
       })
       .then(() => {
         dispatch({

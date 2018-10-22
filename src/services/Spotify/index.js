@@ -1,4 +1,3 @@
-import qs from 'qs'
 import axios from 'axios'
 import { ACCESS_TOKEN_STORAGE_KEY } from '../../constants'
 const CLIENT_ID = '9692b64b8fda41f29d9595800af7d109'
