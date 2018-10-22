@@ -1,13 +1,27 @@
 import React from 'react'
+import t from 'prop-types'
 import ReactSelect from 'react-select'
 
-const Select = props => (
+const Select = ({ options, handleChange, defaultValue, isSearchable }) => (
   <ReactSelect
-    {...props}
-    onChange={props.handleChange}
-    defaultValue={props.defaultValue}
-    isSearchable={true}
+    options={options}
+    onChange={handleChange}
+    defaultValue={defaultValue}
+    isSearchable={isSearchable}
   />
 )
+
+Select.propTypes = {
+  options: t.shape({
+    label: t.string,
+    value: t.string
+  }),
+  handleChange: t.func.isRequired,
+  isSearchable: t.bool
+}
+
+Select.defaultProps = {
+  isSearchable: true
+}
 
 export default Select

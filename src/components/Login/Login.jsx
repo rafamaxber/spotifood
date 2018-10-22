@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import t from 'prop-types'
 
 const WrapLogin = styled.div`
   width: 100%;
@@ -17,7 +18,7 @@ const Button = styled.a`
   font-size: 18px;
   font-weight: bold;
   color: #fff;
-  background-color: var(--secundary-color);
+  background-color: var(--secundary-color, #000);
   padding: 10px 30px;
   border-radius: 20px;
   display: block;
@@ -38,7 +39,7 @@ const Button = styled.a`
   }
 `
 
-export default ({handleLogin}) => (
+const LoginArea = ({ handleLogin }) => (
   <WrapLogin>
     <HeroMessage>
       Hello, welcome to Spotifood, to see all featured playlist is necessary
@@ -47,3 +48,9 @@ export default ({handleLogin}) => (
     <Button onClick={handleLogin}>Click in here to make login</Button>
   </WrapLogin>
 )
+
+LoginArea.propTypes = {
+  handleLogin: t.func.isRequired
+}
+
+export default LoginArea

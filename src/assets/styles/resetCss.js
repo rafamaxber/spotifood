@@ -1,5 +1,12 @@
 import { createGlobalStyle } from 'styled-components'
 
+export const cssVariables = {
+  $cssMainColor: "272727",
+  $cssSecundaryColor: "1ed760",
+  $cssSuccessColor: "00e900",
+  $cssSiteSize: "1340px",
+}
+
 const GlobalStyle = createGlobalStyle`
 
   body {
