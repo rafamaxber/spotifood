@@ -1,6 +1,10 @@
 import { httpGetFeaturedPlaylistFilters } from '../../services/Resources'
 import { removeTheCountryLanguageReference } from '../../utils/country'
-import { getDefaultFilterValues, deleteProp } from '../../utils'
+import {
+  getDefaultFilterValues,
+  deleteProp,
+  errorAccessToken
+} from '../../utils'
 import { translateLocaleList } from '../../utils/locale'
 import { httpGetFeaturedPlaylists } from '../../services/Spotify'
 
@@ -24,7 +28,8 @@ export const initialState = {
     limit: [],
     offset: []
   },
-  playlists: []
+  playlists: [],
+  errorPlaylists: {}
 }
 
 // types
@@ -39,6 +44,7 @@ export const types = {
   UPDATE_SEARCH_BAR_VALUE: 'UPDATE_SEARCH_BAR_VALUE',
   PLAYLISTS: 'PLAYLISTS',
   LOADING_PLAYLISTS: 'LOADING_PLAYLISTS',
+  ERROR_LOADING_PLAYLISTS: 'ERROR_LOADING_PLAYLISTS',
   LOADING: 'LOADING'
 }
 
@@ -61,6 +67,15 @@ export default (state = initialState, action) => {
       return {
         ...state,
         playlistLoading: action.playlistLoading
+      }
+
+    case types.ERROR_LOADING_PLAYLISTS:
+      return {
+        ...state,
+        errorPlaylists: {
+          message: action.message,
+          status: action.status
+        }
       }
 
     case types.FILTER_FIELDS:
@@ -255,14 +270,26 @@ export const getFeaturedPlaylists = (hasLoading = true) => {
           playlists: response.data.playlists.items
         })
       })
+      .then(() => {
+        dispatch({
+          type: types.ERROR_LOADING_PLAYLISTS,
+          message: '',
+          status: ''
+        })
+      })
       .catch(error => {
         if (error.response) {
           if (error.response.status === 401) {
-            window.localStorage.removeItem('accessToken')
-            window.href = '/'
+            return errorAccessToken()
           }
-        } else if (error.request) {
-          window.href = '/'
+          if (error.response.status === 400) {
+            const { data } = error.response
+            return dispatch({
+              type: types.ERROR_LOADING_PLAYLISTS,
+              message: data.error.message || 'Not found',
+              status: 'error'
+            })
+          }
         }
       })
       .then(() => {

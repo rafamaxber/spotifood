@@ -12,10 +12,7 @@ const Select = ({ options, handleChange, defaultValue, isSearchable }) => (
 )
 
 Select.propTypes = {
-  options: t.shape({
-    label: t.string,
-    value: t.string
-  }),
+  options: t.array.isRequired,
   handleChange: t.func.isRequired,
   isSearchable: t.bool
 }

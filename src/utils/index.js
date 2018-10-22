@@ -45,3 +45,8 @@ export const deleteProp = (item, listObject) => {
     return object
   }, {})
 }
+
+export const errorAccessToken = () => {
+  window.localStorage.removeItem('accessToken')
+  window.href = '/'
+}

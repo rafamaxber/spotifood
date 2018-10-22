@@ -16,5 +16,5 @@ export const FilterOffset = props => <StyledInput {...props} type="number" />
 
 FilterOffset.propTypes = {
   /** Should receive the same default html input properties */
-  props: t.object.isRequired
+  props: t.object
 }

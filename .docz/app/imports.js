@@ -1,6 +1,8 @@
 export const imports = {
   'src/components/Home.mdx': () =>
     import(/* webpackPrefetch: true, webpackChunkName: "src-components-home" */ 'src/components/Home.mdx'),
+  'src/components/Alert/index.mdx': () =>
+    import(/* webpackPrefetch: true, webpackChunkName: "src-components-alert-index" */ 'src/components/Alert/index.mdx'),
   'src/components/Card/index.mdx': () =>
     import(/* webpackPrefetch: true, webpackChunkName: "src-components-card-index" */ 'src/components/Card/index.mdx'),
   'src/components/Filters/index.mdx': () =>

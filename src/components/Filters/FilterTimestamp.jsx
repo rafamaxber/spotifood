@@ -18,7 +18,7 @@ export const FilterTimestamp = ({ action, value }) => {
 
 FilterTimestamp.propTypes = {
   /** Method to select a timestamp */
-  action: t.object.isRequired,
+  action: t.func.isRequired,
   /** Timestamp value */
   value: t.string.isRequired
 }
