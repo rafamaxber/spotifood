@@ -1,0 +1,39 @@
+---
+name: Layout
+route: /layout
+---
+
+import { Playground } from 'docz'
+import { Main, Limit, FlexMain } from '.'
+
+## Use cases
+
+### Limit used to make component occupy a defined size
+
+<Playground>
+  <Limit>
+    <div class="article">
+      Limited size
+    </div>
+  </Limit>
+</Playground>
+
+### Main used to make component occupy a full size screen
+
+<Playground>
+  <Main>
+    <div class="article">
+      Full size screen
+    </div>
+  </Main>
+</Playground>
+
+### Main used to make component occupy a full size screen with flexbox
+
+<Playground>
+  <FlexMain>
+    <div class="article">
+      Flex full size screen
+    </div>
+  </FlexMain>
+</Playground>

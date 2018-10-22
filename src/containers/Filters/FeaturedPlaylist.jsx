@@ -65,7 +65,7 @@ class FeaturedPlaylist extends React.PureComponent {
     return (
       <WarpFilter>
         <div className="coutries">
-          <TitleFilter>Choose a country:</TitleFilter>{' '}
+          <TitleFilter>Choose a country:</TitleFilter>
           {countries.map(country => (
             <FilterCountries
               key={country.value}

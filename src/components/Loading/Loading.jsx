@@ -7,6 +7,7 @@ const LoadingBar = styled.div`
   width: 100px;
   margin: auto;
   height: 100%;
+  min-height: 100px;
 `
 
 const Image = styled.img`

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import t from 'prop-types'
 import { Label } from '../Filters'
 
 import { Select } from '../Form'
@@ -18,4 +19,11 @@ export const FilterLocale = ({ action, selected, options }) => {
       </Label>
     </Locale>
   )
+}
+
+FilterLocale.propTypes = {
+  /** Method to select country */
+  action: t.func.isRequired,
+  /** Field name */
+  options: t.array.isRequired,
 }

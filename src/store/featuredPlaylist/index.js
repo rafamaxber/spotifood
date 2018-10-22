@@ -145,7 +145,6 @@ export const uptateTimestamp = timestamp => {
   return (dispatch, getState) => {
     const filters = getState().featuredPlaylist.filters
     const timestampFormated = timestamp.toISOString()
-    console.log('timestampFormated ==> ', timestampFormated)
     dispatch({
       type: types.UPDATE_TIMESTAMP,
       filters: {

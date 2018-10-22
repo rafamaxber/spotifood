@@ -1,4 +1,5 @@
 import React from 'react'
+import t from 'prop-types'
 import InputRange from 'react-input-range'
 import 'react-input-range/lib/css/index.css'
 import { createGlobalStyle } from 'styled-components'
@@ -34,3 +35,12 @@ export const FilterLimit = ({ maxValue, minValue, value, action }) => (
     )}
   </React.Fragment>
 )
+
+FilterLimit.propTypes = {
+  /** Method to change value */
+  action: t.func.isRequired,
+  maxValue: t.number.isRequired,
+  minValue: t.number.isRequired,
+  /** Selected value */
+  value: t.number.isRequired,
+}

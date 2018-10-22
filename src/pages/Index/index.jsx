@@ -10,7 +10,7 @@ import { toogleShowFilterBar, toogleShowSearchBar } from '../../store/layout'
 import { getFeaturedPlaylists } from '../../store/featuredPlaylist'
 import { Main, Limit, FlexMain } from '../../components/Layout'
 import { Header } from '../../components/Header'
-import { CardFeaturedPlaylist } from '../../components/Card'
+import { Card } from '../../components/Card'
 
 const FilterFeaturedPlaylist = LoadableWrapper({
   loader: () =>
@@ -73,17 +73,14 @@ export class Index extends React.Component {
           <Limit>
             <FlexMain>
               {this.filterPlaylist(this.props.playlists).map(playlist => (
-                <CardFeaturedPlaylist
+                <Card
                   key={playlist.id}
                   image={playlist.images[0].url}
                   title={playlist.name}
-                  subTitle={playlist.name}
-                  tracks={{
-                    total: playlist.tracks.total,
-                    href: playlist.tracks.href
-                  }}
                   link={{ href: playlist.href, name: 'go to spotify' }}
-                />
+                >
+                  Has {playlist.tracks.total} tracks
+                </Card>
               ))}
             </FlexMain>
           </Limit>

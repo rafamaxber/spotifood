@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import t from 'prop-types'
 import { flagPath } from '../../utils/country.js'
 
 import { Input } from '../Form'
@@ -54,3 +55,16 @@ export const FilterCountries = ({ action, name, checked, text, value }) => (
     </Label>
   </Country>
 )
+
+FilterCountries.propTypes = {
+  /** Method to select country */
+  action: t.func.isRequired,
+  /** Field name */
+  name: t.string.isRequired,
+  /** Selected value a string like BR */
+  checked: t.string.isRequired,
+  /** Field title */
+  text: t.string.isRequired,
+  /** Field value */
+  value: t.string.isRequired
+}

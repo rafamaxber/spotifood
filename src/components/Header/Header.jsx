@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import t from 'prop-types'
 import logo from '../../assets/images/spotifood-logo.svg'
 import svgSprite from '../../assets/images/sprite.svg'
 
@@ -72,7 +73,7 @@ const SvgIcon = styled.svg`
   cursor: pointer;
 `
 
-export default ({ toogleFilter, toogleSearchBar, loadProgress = 100 }) => (
+const HeaderComponent = ({ toogleFilter, toogleSearchBar, loadProgress }) => (
   <Header load={loadProgress}>
     <FlexLimit>
       {toogleFilter && (
@@ -91,3 +92,18 @@ export default ({ toogleFilter, toogleSearchBar, loadProgress = 100 }) => (
     </FlexLimit>
   </Header>
 )
+
+HeaderComponent.propTypes = {
+  /** Should be use to toogle filter bar */
+  toogleFilter: t.func,
+  /** Should be use to toogle search bar */
+  toogleSearchBar: t.func,
+  /** Should be use to ornament or like a load progress(Not implemented)  */
+  loadProgress: t.number
+}
+
+HeaderComponent.defaultProps = {
+  loadProgress: 100
+}
+
+export default HeaderComponent
