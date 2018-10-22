@@ -1,10 +1,10 @@
 import axios from 'axios'
 import { ACCESS_TOKEN_STORAGE_KEY } from '../../constants'
-const CLIENT_ID = '9692b64b8fda41f29d9595800af7d109'
+const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID
 const SPOTIFY_URL_API = 'https://api.spotify.com/v1/browse'
 const URL_FEATURED_PLAYLIST = '/featured-playlists/'
 
-const getToken = () => {
+export const getToken = () => {
   return window.localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY)
 }
 
