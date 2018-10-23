@@ -1,0 +1,52 @@
+---
+name: Form
+route: /form
+---
+
+import { Playground, PropsTable } from 'docz'
+import { BigInputTheme, Input, Select} from '.'
+
+# Form elements
+
+## Input
+
+Styled generic input
+
+<Playground>
+  <Input
+    placeholder="Write some text"
+    type="email"
+    required
+  />
+</Playground>
+
+## BigInputTheme
+
+Styled a big input
+
+<Playground>
+  <BigInputTheme
+    placeholder="Write some text"
+    type="search"
+  />
+</Playground>
+
+## Select
+
+<PropsTable of={Select} />
+
+*Using a [react-select](https://react-select.com/) package.*
+
+<Playground>
+  <Select
+    handleChange={() => {}}
+    options={[
+      {
+        label: 'English (Australia)', value: 'en_AU'
+      },
+      {
+        label: 'Deutsch (Deutschland)', value: 'de_DE'
+      }
+    ]}
+  />
+</Playground>
