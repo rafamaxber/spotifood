@@ -1,5 +1,7 @@
+import { css } from 'docz-plugin-css'
+
 export default {
-  title: 'Spotifood',
+  title: 'Spotifood docs',
   description: 'This is Spotifood component documentation',
   themeConfig: {
     colors: {
@@ -8,6 +10,9 @@ export default {
       gray: 'lightslategray'
     }
   },
+  plugins: [
+    css()
+  ],
   dest: '/dest-docz',
   port: '3001'
 }

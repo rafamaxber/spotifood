@@ -1,0 +1,286 @@
+{
+  "src/components/Home.mdx": {
+    "name": "Welcome",
+    "route": "/",
+    "id": "01CTFC5QH7P21QFCQAG8PT5PSN",
+    "filepath": "src/components/Home.mdx",
+    "slug": "src-components-home",
+    "order": 0,
+    "menu": null,
+    "headings": [
+      {
+        "depth": 2,
+        "slug": "welcome-to-spotifood-component-documentation",
+        "value": "Welcome to spotifood component documentation"
+      }
+    ]
+  },
+  "src/components/Alert/index.mdx": {
+    "name": "Alert",
+    "route": "/alert",
+    "id": "01CTFC5QH9Q2JV12JE9W27V9PN",
+    "filepath": "src/components/Alert/index.mdx",
+    "slug": "src-components-alert-index",
+    "order": 0,
+    "menu": null,
+    "headings": [
+      {
+        "depth": 1,
+        "slug": "alert",
+        "value": "Alert"
+      },
+      {
+        "depth": 2,
+        "slug": "alert-error",
+        "value": "Alert error"
+      },
+      {
+        "depth": 2,
+        "slug": "alert-warning",
+        "value": "Alert warning"
+      },
+      {
+        "depth": 2,
+        "slug": "alert-success",
+        "value": "Alert success"
+      },
+      {
+        "depth": 2,
+        "slug": "alert-default",
+        "value": "Alert default"
+      }
+    ]
+  },
+  "src/components/Card/index.mdx": {
+    "name": "Card",
+    "route": "/cards",
+    "id": "01CTFC5QH93XFW0J3AQ8JRBR8W",
+    "filepath": "src/components/Card/index.mdx",
+    "slug": "src-components-card-index",
+    "order": 0,
+    "menu": null,
+    "headings": [
+      {
+        "depth": 1,
+        "slug": "cards",
+        "value": "Cards"
+      },
+      {
+        "depth": 2,
+        "slug": "use-cases",
+        "value": "Use cases"
+      },
+      {
+        "depth": 3,
+        "slug": "base-card",
+        "value": "Base card"
+      }
+    ]
+  },
+  "src/components/Filters/index.mdx": {
+    "name": "Filters",
+    "route": "/filters",
+    "id": "01CTFC5QH9K8WCS42PZEBJGV6W",
+    "filepath": "src/components/Filters/index.mdx",
+    "slug": "src-components-filters-index",
+    "order": 0,
+    "menu": null,
+    "headings": [
+      {
+        "depth": 1,
+        "slug": "filters",
+        "value": "Filters"
+      },
+      {
+        "depth": 2,
+        "slug": "filter-countries",
+        "value": "Filter countries"
+      },
+      {
+        "depth": 4,
+        "slug": "with-more-than-one-country",
+        "value": "With more than one country"
+      },
+      {
+        "depth": 4,
+        "slug": "selected-field-br",
+        "value": "Selected field br"
+      },
+      {
+        "depth": 4,
+        "slug": "unselected-field",
+        "value": "Unselected field"
+      },
+      {
+        "depth": 2,
+        "slug": "filter-locale",
+        "value": "Filter locale"
+      },
+      {
+        "depth": 4,
+        "slug": "implemented-filter",
+        "value": "Implemented filter"
+      },
+      {
+        "depth": 2,
+        "slug": "filter-limit",
+        "value": "Filter limit"
+      },
+      {
+        "depth": 4,
+        "slug": "implemented-filter-1",
+        "value": "Implemented filter 1"
+      },
+      {
+        "depth": 2,
+        "slug": "filter-offset",
+        "value": "Filter offset"
+      },
+      {
+        "depth": 4,
+        "slug": "implemented-filter-2",
+        "value": "Implemented filter 2"
+      },
+      {
+        "depth": 2,
+        "slug": "filter-timestamp",
+        "value": "Filter timestamp"
+      },
+      {
+        "depth": 4,
+        "slug": "implemented-filter-3",
+        "value": "Implemented filter 3"
+      }
+    ]
+  },
+  "src/components/Form/index.mdx": {
+    "name": "Form",
+    "route": "/form",
+    "id": "01CTFC5QHA15NVMTB1E89RKCQC",
+    "filepath": "src/components/Form/index.mdx",
+    "slug": "src-components-form-index",
+    "order": 0,
+    "menu": null,
+    "headings": [
+      {
+        "depth": 1,
+        "slug": "form-elements",
+        "value": "Form elements"
+      },
+      {
+        "depth": 2,
+        "slug": "input",
+        "value": "Input"
+      },
+      {
+        "depth": 2,
+        "slug": "biginputtheme",
+        "value": "Biginputtheme"
+      },
+      {
+        "depth": 2,
+        "slug": "select",
+        "value": "Select"
+      }
+    ]
+  },
+  "src/components/Header/Header.mdx": {
+    "name": "Header",
+    "route": "/header",
+    "id": "01CTFC5QHA2CZ111VY15ZARFTS",
+    "filepath": "src/components/Header/Header.mdx",
+    "slug": "src-components-header-header",
+    "order": 0,
+    "menu": null,
+    "headings": [
+      {
+        "depth": 1,
+        "slug": "header",
+        "value": "Header"
+      },
+      {
+        "depth": 2,
+        "slug": "use-cases",
+        "value": "Use cases"
+      },
+      {
+        "depth": 3,
+        "slug": "header-without-props",
+        "value": "Header without props"
+      },
+      {
+        "depth": 3,
+        "slug": "header-with-props",
+        "value": "Header with props"
+      },
+      {
+        "depth": 3,
+        "slug": "header-with-progress-bar-65",
+        "value": "Header with progress bar 65"
+      }
+    ]
+  },
+  "src/components/Layout/index.mdx": {
+    "name": "Layout",
+    "route": "/layout",
+    "id": "01CTFC5QHAN36DB7MF5JET5ASF",
+    "filepath": "src/components/Layout/index.mdx",
+    "slug": "src-components-layout-index",
+    "order": 0,
+    "menu": null,
+    "headings": [
+      {
+        "depth": 2,
+        "slug": "use-cases",
+        "value": "Use cases"
+      },
+      {
+        "depth": 3,
+        "slug": "limit-used-to-make-component-occupy-a-defined-size",
+        "value": "Limit used to make component occupy a defined size"
+      },
+      {
+        "depth": 3,
+        "slug": "main-used-to-make-component-occupy-a-full-size-screen",
+        "value": "Main used to make component occupy a full size screen"
+      },
+      {
+        "depth": 3,
+        "slug": "main-used-to-make-component-occupy-a-full-size-screen-with-flexbox",
+        "value": "Main used to make component occupy a full size screen with flexbox"
+      }
+    ]
+  },
+  "src/components/Loading/index.mdx": {
+    "name": "Loading",
+    "route": "/loading",
+    "id": "01CTFC5QHAD7JCEK0A3KKJ623R",
+    "filepath": "src/components/Loading/index.mdx",
+    "slug": "src-components-loading-index",
+    "order": 0,
+    "menu": null,
+    "headings": [
+      {
+        "depth": 1,
+        "slug": "loading",
+        "value": "Loading"
+      }
+    ]
+  },
+  "src/components/Login/index.mdx": {
+    "name": "Login Area",
+    "route": "/login",
+    "id": "01CTFC5QHAHK8GFVNDKEBFPKB2",
+    "filepath": "src/components/Login/index.mdx",
+    "slug": "src-components-login-index",
+    "order": 0,
+    "menu": null,
+    "headings": [
+      {
+        "depth": 1,
+        "slug": "loginarea",
+        "value": "Loginarea"
+      }
+    ]
+  }
+}

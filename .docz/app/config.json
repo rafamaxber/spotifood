@@ -1,0 +1,9 @@
+{
+  "title": "Spotifood docs",
+  "description": "This is Spotifood component documentation",
+  "colors": {
+    "primary": "#7f060a",
+    "secondary": "khaki",
+    "gray": "lightslategray"
+  }
+}
