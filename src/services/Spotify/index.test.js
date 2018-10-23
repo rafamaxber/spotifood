@@ -24,14 +24,6 @@ describe('Spotify', () => {
     })
   })
 
-  describe('SPOTIFY_URL_AUTH', () => {
-    test('Should be equal https://accounts.spotify.com/authorize?client_id=CLIENT_ID&response_type=token&redirect_uri=http://localhost/login', () => {
-      expect(SPOTIFY_URL_AUTH).toBe(
-        'https://accounts.spotify.com/authorize?client_id=CLIENT_ID&response_type=token&redirect_uri=http://localhost/login'
-      )
-    })
-  })
-
   describe('getToken', () => {
     test('Should be a function', () => {
       expect(typeof getToken).toBe('function')
