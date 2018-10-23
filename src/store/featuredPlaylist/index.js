@@ -1,3 +1,5 @@
+// @flow
+
 import { httpGetFeaturedPlaylistFilters } from '../../services/Resources'
 import { removeTheCountryLanguageReference } from '../../utils/country'
 import {
@@ -8,8 +10,8 @@ import {
 import { translateLocaleList } from '../../utils/locale'
 import { httpGetFeaturedPlaylists } from '../../services/Spotify'
 
-const defaultFilterValues = getDefaultFilterValues()
-export const initialState = {
+const defaultFilterValues: Object = getDefaultFilterValues()
+export const initialState: Object = {
   loading: true,
   playlistLoading: true,
   hasFilterFields: false,
@@ -33,7 +35,7 @@ export const initialState = {
 }
 
 // types
-export const types = {
+export const types: Object = {
   HAS_FILTER_FIELDS: 'HAS_FILTER_FIELDS',
   FILTER_FIELDS: 'FILTER_FIELDS',
   UPDATE_COUNTRY: 'UPDATE_COUNTRY',
@@ -49,7 +51,7 @@ export const types = {
 }
 
 // reducer
-export default (state = initialState, action) => {
+export default (state: Object = initialState, action: Object) => {
   switch (action.type) {
     case types.LOADING:
       return {
@@ -107,7 +109,7 @@ export default (state = initialState, action) => {
 }
 
 // actions
-export const getCountries = filters => {
+export const getCountries = (filters: Array<Object>): Array<Object> => {
   let result = filters.filter(item => item.id === 'country')
   result = result.length ? result[0].values : []
 
@@ -118,20 +120,20 @@ export const getCountries = filters => {
   })
 }
 
-export const getlocaleList = filters => {
+export const getlocaleList = (filters: Array<Object>): Array<Object> => {
   let result = filters.filter(item => item.id === 'locale')
   result = result.length ? result[0].values : []
   return translateLocaleList(result)
 }
 
-export const getLimit = filters => {
+export const getLimit = (filters: Array<Object>): Array<Object> => {
   let result = filters.filter(item => item.id === 'limit')
   result = result.length ? result[0].validation : []
   return result
 }
 
-export const updateCountry = country => {
-  return (dispatch, getState) => {
+export const updateCountry = (country: string) => {
+  return (dispatch: Function, getState: Function) => {
     const filters = getState().featuredPlaylist.filters
     dispatch({
       type: types.UPDATE_COUNTRY,
@@ -143,8 +145,8 @@ export const updateCountry = country => {
   }
 }
 
-export const updateLocale = locale => {
-  return (dispatch, getState) => {
+export const updateLocale = (locale: Object) => {
+  return (dispatch: Function, getState: Function) => {
     const filters = getState().featuredPlaylist.filters
     dispatch({
       type: types.UPDATE_LOCALE,
@@ -156,8 +158,8 @@ export const updateLocale = locale => {
   }
 }
 
-export const uptateTimestamp = timestamp => {
-  return (dispatch, getState) => {
+export const uptateTimestamp = (timestamp: Object) => {
+  return (dispatch: Function, getState: Function) => {
     const filters = getState().featuredPlaylist.filters
     const timestampFormated = timestamp.toISOString()
     dispatch({
@@ -170,8 +172,8 @@ export const uptateTimestamp = timestamp => {
   }
 }
 
-export const uptateOffset = offset => {
-  return (dispatch, getState) => {
+export const uptateOffset = (offset: number) => {
+  return (dispatch: Function, getState: Function) => {
     const filters = getState().featuredPlaylist.filters
     dispatch({
       type: types.UPDATE_OFFSET,
@@ -183,8 +185,8 @@ export const uptateOffset = offset => {
   }
 }
 
-export const uptatelimit = limit => {
-  return (dispatch, getState) => {
+export const uptatelimit = (limit: number) => {
+  return (dispatch: Function, getState: Function) => {
     const filters = getState().featuredPlaylist.filters
     dispatch({
       type: types.UPDATE_LIMIT,
@@ -196,8 +198,8 @@ export const uptatelimit = limit => {
   }
 }
 
-export const updateSearchBar = value => {
-  return (dispatch, getState) => {
+export const updateSearchBar = (value: string) => {
+  return (dispatch: Function, getState: Function) => {
     const filters = getState().featuredPlaylist.filters
     dispatch({
       type: types.UPDATE_SEARCH_BAR_VALUE,
@@ -210,7 +212,7 @@ export const updateSearchBar = value => {
 }
 
 export const getFeaturedPlaylistFilters = () => {
-  return (dispatch, getState) => {
+  return (dispatch: Function, getState: Function) => {
     const filters = getState().featuredPlaylist.filters
 
     dispatch({
@@ -253,8 +255,8 @@ export const getFeaturedPlaylistFilters = () => {
   }
 }
 
-export const getFeaturedPlaylists = (hasLoading = true) => {
-  return (dispatch, getState) => {
+export const getFeaturedPlaylists = (hasLoading: boolean = true) => {
+  return (dispatch: Function, getState: Function) => {
     const filters = getState().featuredPlaylist.filters
     const spotifyFilter = deleteProp('searchBarValue', filters)
 

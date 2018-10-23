@@ -1,9 +1,10 @@
+// @flow
 const initialState = {
   showFilterBar: false,
   showSearchBar: false
 }
 
-export default (state = initialState, action) => {
+export default (state: Object = initialState, action: Object): Object => {
   switch (action.type) {
     case 'SHOW_FILTER_BAR':
       return {
@@ -20,8 +21,8 @@ export default (state = initialState, action) => {
   }
 }
 
-export const toogleShowFilterBar = value => {
-  return dispatch => {
+export const toogleShowFilterBar = (value: Boolean) => {
+  return (dispatch: Function) => {
     dispatch({
       type: 'SHOW_FILTER_BAR',
       showFilterBar: value
@@ -29,8 +30,8 @@ export const toogleShowFilterBar = value => {
   }
 }
 
-export const toogleShowSearchBar = value => {
-  return dispatch => {
+export const toogleShowSearchBar = (value: Boolean) => {
+  return (dispatch: Function) => {
     dispatch({
       type: 'SHOW_SEARCH_BAR',
       showSearchBar: value
