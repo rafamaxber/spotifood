@@ -20,9 +20,11 @@
     "react-select": "^2.1.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
+    "source-map-explorer": "^1.6.0",
     "styled-components": "^4.0.2"
   },
   "scripts": {
+    "analyze": "source-map-explorer build/static/js/main.*",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

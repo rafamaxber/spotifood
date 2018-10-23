@@ -111,7 +111,7 @@ export const getCountries = filters => {
   let result = filters.filter(item => item.id === 'country')
   result = result.length ? result[0].values : []
 
-  // FIX resource value en_US to US like a pattern follow by the navigators and API'S
+  // FIX: resource value en_US to US like a pattern follow by the navigators and API'S
   return result.map(item => {
     item.value = removeTheCountryLanguageReference(item.value)
     return item

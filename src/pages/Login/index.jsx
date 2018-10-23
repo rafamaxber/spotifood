@@ -19,16 +19,13 @@ export default class Login extends React.PureComponent {
   }
 
   componentWillMount() {
-
     if (window.location.hash) {
-
       const queryParams = qs.parse(window.location.hash)
       const accessToken = queryParams[ACCESS_TOKEN_HASH_KEY]
 
       if (accessToken) {
         window.localStorage.setItem(ACCESS_TOKEN_STORAGE_KEY, accessToken)
       }
-
     }
 
     if (window.opener) {
