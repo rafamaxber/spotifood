@@ -1,28 +1,34 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import GlobalStyle from './assets/styles/resetCss'
+import MainPage from './pages/Index'
+import Login from './pages/Login'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { ACCESS_TOKEN_STORAGE_KEY } from './constants'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+const isAuthenticated = () => {
+  const accessToken = window.localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY)
+  return !!accessToken
 }
 
-export default App;
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      isAuthenticated() === true ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to="/login" />
+      )
+    }
+  />
+)
+
+export default () => (
+  <Router>
+    <React.Fragment>
+      <GlobalStyle />
+      <PrivateRoute path="/" exact component={MainPage} />
+      <Route path="/login" component={Login} />
+    </React.Fragment>
+  </Router>
+)
