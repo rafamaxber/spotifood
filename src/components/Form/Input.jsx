@@ -21,6 +21,10 @@ export const BigInputTheme = styled(Input)`
     color: #fff;
     opacity: 0.2;
   }
+  @media (max-width: 618px) {
+    font-size: 19px;
+    height: 50px;
+  }
 `
 
 export default props => <Input {...props} />
