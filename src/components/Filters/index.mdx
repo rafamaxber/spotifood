@@ -1,0 +1,126 @@
+---
+name: Filters
+route: /filters
+---
+
+import { Playground, PropsTable } from 'docz'
+import {
+  FilterCountries,
+  FilterLocale,
+  FilterLimit,
+  FilterOffset,
+  FilterTimestamp,
+} from '.'
+
+# Filters
+
+## Filter Countries
+
+<PropsTable of={FilterCountries} />
+
+#### With more than one country
+
+<Playground>
+  {['BR', 'US', 'DE'].map(item => (
+    <FilterCountries
+      action={() => {}}
+      name='country'
+      checked='US'
+      text='country name'
+      value={item}
+    />
+  ))}
+</Playground>
+
+
+#### Selected field BR
+
+<Playground>
+  <FilterCountries
+    action={() => {}}
+    name='country'
+    checked='BR'
+    text='Choose a country'
+    value={'BR'}
+  />
+</Playground>
+
+#### Unselected field
+
+<Playground>
+  <FilterCountries
+    action={() => {}}
+    name='country'
+    checked='US'
+    text='Choose a country'
+    value={'BR'}
+  />
+</Playground>
+
+
+## Filter Locale
+
+<PropsTable of={FilterLocale} />
+
+#### Implemented filter
+
+<Playground>
+  <FilterLocale
+    action={() => {}}
+    options={[
+      {
+        label: 'English (Australia)', value: 'en_AU'
+      },
+      {
+        label: 'Deutsch (Deutschland)', value: 'de_DE'
+      }
+    ]}
+  />
+</Playground>
+
+## Filter Limit
+
+<PropsTable of={FilterLimit} />
+
+#### Implemented filter
+
+<Playground>
+  <FilterLimit
+    maxValue={50}
+    minValue={1}
+    value={25}
+    action={() => {}}
+  />
+</Playground>
+
+## Filter Offset
+
+<PropsTable of={FilterOffset} />
+
+#### Implemented filter
+
+It's a simple styled input number.
+
+<Playground>
+  <FilterOffset
+    placeholder="0"
+    max={50}
+    min={1}
+    onChange={() => {}}
+  />
+</Playground>
+
+## Filter Timestamp
+
+<PropsTable of={FilterTimestamp} />
+
+#### Implemented filter
+
+It's a simple styled input number.
+
+<Playground>
+  <FilterTimestamp
+    action={() => {}}
+    value={Date.now()}
+  />
+</Playground>
