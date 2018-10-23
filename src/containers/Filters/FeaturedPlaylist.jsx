@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import throttle from 'lodash/throttle'
 import {
   FilterCountries,
   TitleFilter,
@@ -19,11 +20,19 @@ class FeaturedPlaylist extends React.PureComponent {
     super(props)
     const { dispatch } = props
     this.boundActionCreators = bindActionCreators(storeActions, dispatch)
+    this.throttleGetFeaturedPlaylists = throttle(
+      this.callerGetFeaturedPlaylists,
+      600
+    )
   }
 
   componentDidMount() {
     if (this.props.hasFilterFields) return false
     this.props.dispatch(storeActions.getFeaturedPlaylistFilters())
+  }
+
+  callerGetFeaturedPlaylists() {
+    this.props.dispatch(storeActions.getFeaturedPlaylists())
   }
 
   handleOnChangeCountry(event) {
@@ -43,21 +52,17 @@ class FeaturedPlaylist extends React.PureComponent {
 
   handleOnChangeLimit(value) {
     this.props.dispatch(storeActions.uptatelimit(value))
-    this.props.dispatch(storeActions.getFeaturedPlaylists())
+    this.throttleGetFeaturedPlaylists()
   }
 
   handleOnChangeOffset(event) {
     this.props.dispatch(storeActions.uptateOffset(event.target.value))
-    this.props.dispatch(storeActions.getFeaturedPlaylists())
+    this.throttleGetFeaturedPlaylists()
   }
 
   render() {
     const { errorPlaylists } = this.props
-    const {
-      countries,
-      localeList,
-      limit,
-    } = this.props.filterFields
+    const { countries, localeList, limit } = this.props.filterFields
     const selectedCountry = this.props.filters.country
     const selectedLocale = this.props.filters.locale
     const selectedTimestamp = this.props.filters.timestamp
