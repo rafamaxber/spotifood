@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - '10'
+branches:
+  only:
+    - development
+deploy:
+  provider: heroku
+  api_key: "$HEROKU_APP_ID"
+  app: "$HEROKU_APP_APP_NAME"
+cache:
+  yarn: true
+  directories:
+    - "node_modules"
