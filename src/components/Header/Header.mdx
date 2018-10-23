@@ -1,0 +1,37 @@
+---
+name: Header
+route: /header
+---
+
+import { Playground, PropsTable } from 'docz'
+import { Header } from '.'
+
+# Header
+
+<PropsTable of={Header} />
+
+## Use cases
+
+### Header without props
+
+<Playground>
+  <Header />
+</Playground>
+
+### Header with props
+
+<Playground>
+  <Header
+    toogleFilter={() => console.log('Show Filter')}
+    toogleSearchBar={() => console.log('Show SearchBar')}
+    loadProgress={100}
+  />
+</Playground>
+
+### Header with progress bar 65%
+
+<Playground>
+  <Header
+    loadProgress={65}
+  />
+</Playground>
